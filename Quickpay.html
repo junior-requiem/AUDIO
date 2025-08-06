@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OGL Progress Tracker - Step 4 Clickable</title>
+  <style>
+    body {
+      background: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 60px 0;
+    }
+
+    .timeline {
+      position: relative;
+      width: 440px;
+      max-width: 98vw;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 45px;
+      width: 4px;
+      height: calc(100% - 70px);
+      background-color: #ccc;
+      z-index: 0;
+    }
+
+    .step-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 70px;
+      position: relative;
+      user-select: none;
+      min-height: 90px;
+    }
+
+    .step-wrapper[data-step="4"] {
+      cursor: pointer;
+    }
+
+    .circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background-color 0.4s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .circle img {
+      width: 44px;
+      height: 44px;
+      pointer-events: none;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .completed {
+      background-color: #21c55d !important;
+      animation: pop 0.4s ease;
+    }
+
+    .construction {
+      background-color: #f59e0b;
+    }
+
+    .locked {
+      background-color: #bbb;
+      opacity: 1;
+    }
+
+    .locked,
+    .locked img {
+      pointer-events: none !important;
+    }
+
+    .text {
+      margin-left: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 220px;
+      max-width: 290px;
+      word-break: break-word;
+    }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #23374d;
+      line-height: 1.2;
+    }
+
+    .step-subtitle {
+      font-size: 15px;
+      color: #555;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .step-wrapper[data-step="4"] .circle:hover:not(.completed) {
+      animation: bounce 0.6s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-12px); }
+      60% { transform: translateY(4px); }
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    /* Modal Styles */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(30,30,60,0.2);
+      z-index: 99;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-bg.active {
+      display: flex;
+      animation: fadeInModal 0.3s;
+    }
+    @keyframes fadeInModal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal {
+      background: white;
+      padding: 36px 36px 24px 36px;
+      border-radius: 24px;
+      box-shadow: 0 4px 32px rgba(30,30,60,0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 92vw;
+      min-width: 260px;
+      text-align: center;
+    }
+    .modal-check {
+      font-size: 38px;
+      color: #21c55d;
+      margin-bottom: 12px;
+    }
+    .modal-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #21c55d;
+      margin-bottom: 8px;
+    }
+    .modal-desc {
+      color: #374151;
+      font-size: 17px;
+      margin-bottom: 20px;
+    }
+    .modal-btn {
+      background: #2c7be5;
+      color: #fff;
+      padding: 10px 24px;
+      font-size: 17px;
+      border: none;
+      border-radius: 22px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.16s;
+    }
+    .modal-btn:hover { background: #1659b7; }
+
+    @media (max-width: 530px) {
+      .timeline {
+        width: 100vw;
+        min-width: 0;
+      }
+      .text {
+        min-width: 0;
+        max-width: 62vw;
+      }
+      .step-title {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="timeline">
+    <div class="step-wrapper" data-step="1">
+      <div class="circle completed">
+        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Checkmark">
+      </div>
+      <div class="text">
+        <div class="step-title">Create a Payroll Relationship</div>
+        <div class="step-subtitle">Step 1</div>
+      </div>
+    </div>
+    <div class="step-wrapper" data-step="2">
+      <div class="circle completed">
+        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Checkmark">
+      </div>
+      <div class="text">
+        <div class="step-title">Add a Non-Recurring Element Entry</div>
+        <div class="step-subtitle">Step 2</div>
+      </div>
+    </div>
+    <div class="step-wrapper" data-step="3">
+      <div class="circle completed">
+        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Checkmark">
+      </div>
+      <div class="text">
+        <div class="step-title">Add a Recurring Element Entry</div>
+        <div class="step-subtitle">Step 3</div>
+      </div>
+    </div>
+    <div class="step-wrapper" data-step="4">
+      <div class="circle construction">
+        <img src="https://cdn-icons-png.flaticon.com/512/6301/6301318.png" alt="Guide">
+      </div>
+      <div class="text">
+        <div class="step-title">Run a QuickPay</div>
+        <div class="step-subtitle">Step 4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal">
+      <img src="/mnt/data/031e22b2-2363-492e-ba8d-f6092e7b3178.png" alt="100 Points" style="width:200px;max-width:180px;height:auto;display:block;margin:0 auto;">
+      <div class="modal-desc"><strong><br>You have earned 100 Highstreet Points!</strong> <br><br> Congratulations on completing this step.<br>Keep going for more rewards!</div>
+      <button class="modal-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+  <script>
+    // Only allow clicking the fourth step (construction)
+    document.querySelector('.step-wrapper[data-step="4"]').addEventListener('click', function () {
+      const wrapper = this;
+      const circle = wrapper.querySelector('.circle');
+      const icon = circle.querySelector('img');
+      if (circle.classList.contains('completed')) return; // Already completed
+
+      // Mark as complete
+      circle.classList.remove('construction');
+      circle.classList.add('completed');
+      icon.src = 'https://cdn-icons-png.flaticon.com/512/190/190411.png';
+      icon.alt = 'Checkmark';
+
+      // Pop-up modal
+      document.getElementById('modal-bg').classList.add('active');
+      setTimeout(() => circle.classList.remove('pop'), 500);
+    });
+
+    function closeModal() {
+      document.getElementById('modal-bg').classList.remove('active');
+    }
+    // Dismiss modal on background click or escape key
+    document.getElementById('modal-bg').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
+</body>
+</html>
